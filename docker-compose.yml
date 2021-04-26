@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  feature-toggle:
+    image: ${IMAGE_TAG}
+    container_name: feature-toggle
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - db_net
+    restart: on-failure
