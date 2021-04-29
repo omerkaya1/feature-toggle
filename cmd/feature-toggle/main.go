@@ -13,8 +13,10 @@ func main() {
 	var err error
 	// Initialise logger
 	log := internal.NewBaseLogger()
+	// Initialise the storage
+	storage := internal.NewInMemoryStorage()
 	// Init the HTTP server
-	server := rest.NewServer(log)
+	server := rest.NewServer(log, storage)
 
 	// Listen for the interrupt signal that will trigger the server shutdown
 	quit := make(chan os.Signal, 1)
@@ -31,6 +33,10 @@ func main() {
 	var exitCode int
 	if err = server.Run(ctx, ":8080"); err != nil {
 		log.Errorf("failure to gracefully stop the HTTP server: %s", err)
+		exitCode = 1
+	}
+	if err = storage.Close(); err != nil {
+		log.Errorf("failure to close the DB connection: %s", err)
 		exitCode = 1
 	}
 	os.Exit(exitCode)

@@ -1,5 +1,5 @@
 ### First stage: build backend
-FROM golang:1.14-alpine AS go
+FROM golang:1.16-alpine AS go
 # Set the working directory
 WORKDIR /src
 # Download dependencies
