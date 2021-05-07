@@ -41,7 +41,7 @@ func (ft updateFeatureToggle) Validate() error {
 	if ft.DisplayName == "" {
 		return errors.New("empty display name")
 	}
-	if ft.DisplayName == "" {
+	if ft.Description == "" {
 		return errors.New("empty description")
 	}
 	if ft.Active == "" {
